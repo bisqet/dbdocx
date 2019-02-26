@@ -30,9 +30,9 @@ app.post('/syncUsersDB', function (request, response) {
   response.end('success');
   console.log(request.body);
 });
-app.post('/formJournal', function (request, response) {
+app.post('/formJournal', async function (request, response) {
   console.log(request.body);
-  const data = createReport({
+  const data = await createReport({
     template: 'templates/journal-template.docx',
     output: 'buffer',
     data: request.body,
