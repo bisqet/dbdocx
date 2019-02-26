@@ -15,31 +15,33 @@ app.use(express.static('public'));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-    res.append('Access-Control-Allow-Origin', ['*']);
-    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-    res.append('Access-Control-Allow-Headers', 'Content-Type');
-    next();
+  res.append('Access-Control-Allow-Origin', ['*']);
+  res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.append('Access-Control-Allow-Headers', 'Content-Type');
+  next();
 });
 
 // http://expressjs.com/en/starter/basic-routing.html
-app.get('/', function(request, response) {
+app.get('/', function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.post('/syncUsersDB', function(request,response){
-
-})
-app.post('/formJournal', function(request, response) {
+app.post('/syncUsersDB', function (request, response) {
+  response.end('success');
   console.log(request.body);
-  const data = createReport({
-  template: 'templates/myTemplate.docx',
-  output: 'reports/myReport.docx',
-  data: request.body,
 });
-  response.end(request.body, 'binary');
+app.post('/formJournal', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/journal-template.docx',
+    output: 'results/some.docx',
+    data: request.body,
+  });
+  console.log(data)
+  response.end(data, 'binary');
 });
 
 // listen for requests :)
-const listener = app.listen(process.env.PORT, function() {
+const listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
