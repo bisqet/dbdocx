@@ -39,6 +39,42 @@ app.post('/formJournal', async function (request, response) {
   });
   response.end(data, 'binary');
 });
+app.post('/formDopusk', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/dopusk.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formPednagr', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/pednagruzka.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formOtchisl', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/Otchislenie.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formZachisl', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/prikazOZachislenii.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function () {
