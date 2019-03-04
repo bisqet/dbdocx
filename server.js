@@ -76,6 +76,15 @@ app.post('/formZachisl', async function (request, response) {
   });
   response.end(data, 'binary');
 });
+app.post('/formListSlush', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/listSlush.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function () {
