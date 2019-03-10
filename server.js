@@ -85,6 +85,65 @@ app.post('/formListSlush', async function (request, response) {
   });
   response.end(data, 'binary');
 });
+app.post('/formDiarys', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/diarys.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formexamvedomost', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/examvedomost.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/journalUsp', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/journalUsp.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formkvalicomission', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/formkvalicomission.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formstartEdu', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/startEdu.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formVipuskGrupi', async function (request, response) {
+  console.log(request.body);
+  const data = await createReport({
+    template: 'templates/formVipuskGrupi.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+
+
+
+
+
 
 // listen for requests :)
 const listener = app.listen(process.env.PORT, function () {
