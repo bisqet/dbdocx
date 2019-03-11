@@ -115,7 +115,7 @@ app.post('/journalUsp', async function (request, response) {
 app.post('/formkvalicomission', async function (request, response) {
   console.log(request.body);
   const data = await createReport({
-    template: 'templates/formkvalicomission.docx',
+    template: 'templates/kvalicomission.docx',
     output: 'buffer',
     data: request.body,
   });
@@ -133,7 +133,7 @@ app.post('/formstartEdu', async function (request, response) {
 app.post('/formVipuskGrupi', async function (request, response) {
   console.log(request.body);
   const data = await createReport({
-    template: 'templates/formVipuskGrupi.docx',
+    template: 'templates/vipuskGrupi.docx',
     output: 'buffer',
     data: request.body,
   });
