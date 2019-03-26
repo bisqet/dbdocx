@@ -42,7 +42,9 @@ db.getAll = () => {
         fs.appendFileSync('.err.log', `\n Unknown error in db.getAll, error code: ${err.code}`);
         return reject(err);
       }
-      return resolve(JSON.parse(res));
+      res = JSON.parse(res);
+      if(lastChange<res.lastChange)lastChange = res.lastChange;
+      return resolve(res);
     });
   })
 };
