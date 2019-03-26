@@ -6,7 +6,7 @@ const createReport = require('docx-templates').default;
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const db = require('./db/index.js');
+const db = require('./db/localBD.js');
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.

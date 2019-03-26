@@ -22,8 +22,9 @@ db.createConnection = (prefix) => {
   }
 };
 db.replaceDb = async (db) => {
+  if(db.lastChange<lastChange)return;
   lastChange++;
-  let data = {db, lastChange};
+  let data = JSON.stringify({db:JSON.parse(db), lastChange});
   fs.writeFile(pathToDb, `${data}`, (err) => {
     if (err) {
       console.error('Error while replacing DB!!!');
