@@ -3,7 +3,7 @@ const
   fs = require('fs'),
   db = {},
   pathToDb = path.join(__dirname, 'db.json');
-let lastChange = 0;
+let lastChange = 8;
 db.createConnection = (prefix) => {
   try {
     fs.statSync(pathToDb);
@@ -21,11 +21,10 @@ db.createConnection = (prefix) => {
     }
   }
 };
-db.replaceDb = async ({db}) => {
-  db = JSON.parse(db);
+db.replaceDb = async (db) => {
   if(db.lastChange<lastChange)return;
   lastChange++;
-  let data = JSON.stringify({db, lastChange});
+  let data = JSON.stringify({db: JSON.parse(db.db), lastChange});
   fs.writeFile(pathToDb, `${data}`, (err) => {
     if (err) {
       console.error('Error while replacing DB!!!');
