@@ -3,8 +3,7 @@ const
   fs = require('fs'),
   db = {},
   pathToDb = path.join(__dirname, 'db.json');
-let lastChange = 8;
-db.createConnection = (prefix) => {
+  db.createConnection = (prefix) => {
   try {
     fs.statSync(pathToDb);
     fs.appendFileSync('.out.log', `\n successfully connected to DB with prefix: ${prefix}`)
@@ -21,10 +20,8 @@ db.createConnection = (prefix) => {
     }
   }
 };
-db.replaceDb = async (db) => {
-  if(db.lastChange<lastChange)return;
-  lastChange++;
-  let data = JSON.stringify({db: JSON.parse(db.db), lastChange});
+db.replaceDb = async (users) => {
+  let data = JSON.stringify(users);
   fs.writeFile(pathToDb, `${data}`, (err) => {
     if (err) {
       console.error('Error while replacing DB!!!');
@@ -43,14 +40,14 @@ db.getAll = () => {
         return reject(err);
       }
       res = JSON.parse(res);
-      if(lastChange<res.lastChange)lastChange = res.lastChange;
       return resolve(res);
     });
   })
 };
-db.checkForUpdates = (lastChangeReq) =>{
-  if(lastChangeReq<lastChange){
-    return {status:"Local store is behind master store by"+lastChange-lastChangeReq+" changes"};
+db.checkForUpdates = async (state) =>{
+  let stringifiedState = JSON.stringify(state);
+  if(stringifiedState!==JSON.stringify(await db.getAll())){
+    return {status:"Local store unsync with master"};
   }
   return {status:"OK"}
 }
