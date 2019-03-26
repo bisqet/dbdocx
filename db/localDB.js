@@ -21,7 +21,7 @@ db.createConnection = (prefix) => {
     }
   }
 };
-db.replaceDb = async (db) => {
+db.replaceDb = async ({db}) => {
   if(db.lastChange<lastChange)return;
   lastChange++;
   let data = JSON.stringify({db:JSON.parse(db), lastChange});
