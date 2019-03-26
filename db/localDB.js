@@ -3,7 +3,7 @@ const
   fs = require('fs'),
   db = {},
   pathToDb = path.join(__dirname, 'db.json');
-
+let lastChange = 0;
 db.createConnection = (prefix) => {
   try {
     fs.statSync(pathToDb);
@@ -21,30 +21,15 @@ db.createConnection = (prefix) => {
     }
   }
 };
-
-db.addObject = async (o, prefix) => {
-  let data = await db.getAll();
-  if (!data[prefix]) data[prefix] = [];
-  data[prefix].push(o);
-  //let csvdata = [];
-  for (let i in data) {
-    for (let o in data[i]) {
-      let temp = {};
-      temp.prefix = i;
-      temp['hasMobility'] = data[i][o].hasMobility === 1 ? "Yes" : "No";
-      temp['maxSpeed'] = data[i][o].maxSpeed;
-      temp['ZIP'] = data[i][o].zip;
-      temp['Address'] = data[i][o].address;
-      //csvdata.push(temp)
-    }
-  }
-  data = JSON.stringify(data);
+db.replaceDb = async (db) => {
+  lastChange++;
+  let data = {db, lastChange};
   fs.writeFile(pathToDb, `${data}`, (err) => {
     if (err) {
-      console.error('Error while adding new object to DB!!!')
+      console.error('Error while replacing DB!!!');
       return fs.appendFileSync('.err.log', `\n Unknown error in db.addObject, error code: ${err.code}`);
     }
-    return console.debug('successfully added new object to DB')
+    return console.debug('successfully replaced DB')
   });
 };
 
@@ -60,5 +45,11 @@ db.getAll = () => {
     });
   })
 };
+db.checkForUpdates = (lastChangeReq) =>{
+  if(lastChangeReq<lastChange){
+    return {status:"Local store is behind master store by"+lastChange-lastChangeReq+" changes"};
+  }
+  return {status:"OK"}
+}
 
 module.exports = db;

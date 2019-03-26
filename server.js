@@ -6,7 +6,7 @@ const createReport = require('docx-templates').default;
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-//const db = require ('./db/index.js');
+const db = require('./db/index.js');
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -27,10 +27,27 @@ app.get('/', function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.post('/syncUsersDB', function (request, response) {
-  response.end('success');
+app.post('/syncUsersDB', async function (request, response) {
+  await db.replaceDb(request.body);
+  response.end('Синхронизация успешна.');
   console.log(request.body);
 });
+
+app.get('/connectToDb', function (request, response) {
+  db.createConnection();
+  response.end('successful');
+  console.log(request);
+});
+app.get('/checkForUpdates', function (request, response) {
+  response.end(db.checkForUpdates(JSON.stringify(request.body.lastChange)));
+  console.log(request);
+});
+
+app.get('/getAll', async function (request, response) {
+  response.end(JSON.stringify(await db.getAll()));
+  console.log(request);
+});
+
 app.post('/formJournal', async function (request, response) {
   console.log(request.body);
   const data = await createReport({
@@ -139,10 +156,6 @@ app.post('/formVipuskGrupi', async function (request, response) {
   });
   response.end(data, 'binary');
 });
-
-
-
-
 
 
 // listen for requests :)
