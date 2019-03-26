@@ -37,7 +37,7 @@ app.get('/connectToDb', function (request, response) {
   response.end('successful');
 });
 app.post('/checkForUpdates', function (request, response) {
-  response.end(db.checkForUpdates(JSON.stringify(request.body.lastChange)));
+  response.end(db.checkForUpdates(request.body.lastChange));
 });
 
 app.get('/getAll', async function (request, response) {
