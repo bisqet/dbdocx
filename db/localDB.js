@@ -46,7 +46,8 @@ db.getAll = () => {
 };
 db.checkForUpdates = async (state) =>{
   let stringifiedState = JSON.stringify(state);
-  if(stringifiedState!==JSON.stringify(await db.getAll())){
+  const currentDbState = await db.getAll();
+  if(stringifiedState!==JSON.stringify(currentDbState)&&Object.keys(currentDbState).length!==0){
     return {status:"Local store unsync with master"};
   }
   return {status:"OK"}
