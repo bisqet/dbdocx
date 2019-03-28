@@ -13,7 +13,7 @@ const db = require('./db/localDB.js');
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50MB", type:'application/json'}));
 
 app.use((req, res, next) => {
   res.append('Access-Control-Allow-Origin', ['*']);
