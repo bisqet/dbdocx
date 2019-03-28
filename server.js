@@ -140,6 +140,54 @@ app.post('/formVipuskGrupi', async function (request, response) {
   });
   response.end(data, 'binary');
 });
+app.post('/formudoup2', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/высота_2_гр_голубая-2019-шаблон-1.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formudoup1', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/высота_1_гр_голубая-2019-шаблон-1.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formudorablul', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/рабочие_люльки-2019.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formudodovr', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/доврачебная_1_ помощь зеленая-2019.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formsosuds', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/сосуды под давлением-2019.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formjouranlsvodn', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/сводный журнал.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
 
 
 // listen for requests :)
