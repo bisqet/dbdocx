@@ -190,7 +190,7 @@ app.post('/formjouranlsvodn', async function (request, response) {
 });
 app.post('/formudoptmruk', async function (request, response) {
   const data = await createReport({
-    template: 'templates/сводный журнал.docx',
+    template: 'templates/пожарно-технический минимум-руководители .docx',
     output: 'buffer',
     data: request.body,
   });
@@ -198,7 +198,7 @@ app.post('/formudoptmruk', async function (request, response) {
 });
 app.post('/formudoptmrab', async function (request, response) {
   const data = await createReport({
-    template: 'templates/сводный журнал.docx',
+    template: 'templates/пожарно-технический минимум-рабочие.docx',
     output: 'buffer',
     data: request.body,
   });
