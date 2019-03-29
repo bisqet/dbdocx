@@ -188,6 +188,22 @@ app.post('/formjouranlsvodn', async function (request, response) {
   });
   response.end(data, 'binary');
 });
+app.post('/formudoptmruk', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/сводный журнал.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
+app.post('/formudoptmrab', async function (request, response) {
+  const data = await createReport({
+    template: 'templates/сводный журнал.docx',
+    output: 'buffer',
+    data: request.body,
+  });
+  response.end(data, 'binary');
+});
 
 
 // listen for requests :)
