@@ -190,7 +190,7 @@ app.post('/formjouranlsvodn', async function (request, response) {
 });
 app.post('/formudoptmruk', async function (request, response) {
   const data = await createReport({
-    template: 'templates/пожарно-технический минимум-руководители .docx',
+    template: 'templates/пожарно-технический минимум-руководители.docx',
     output: 'buffer',
     data: request.body,
   });
